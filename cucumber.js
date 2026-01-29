@@ -1,5 +1,5 @@
 module.exports = {
   default: {
-    require: ['step_definations/**/*.js', 'hooks/**/*.js']
+    require: ['step_definitions/**/*.js', 'hooks/**/*.js']
   }
 };
