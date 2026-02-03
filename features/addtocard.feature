@@ -1,6 +1,7 @@
 Feature:add item in card
 
-Background:user login to website
+Background:
+Given user login to website
 
 @tag
 Scenario: user is able to add item to card
