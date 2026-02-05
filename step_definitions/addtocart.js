@@ -15,6 +15,7 @@ this.driver = await new Builder().forBrowser('chrome').build();
  const base = new BasePage(this.driver)
  await base.goToUrl('https://demowebshop.tricentis.com/login');
  const logpage = new LoginPage(this.driver)
+
  await logpage.LoginClickButton()
  await logpage.EmailValue('shraddhasharma2603@gmail.com')
  await logpage.PasswordValue('Shraddha@26')
@@ -34,17 +35,16 @@ Then('user navigate to add cart', async function()
 
 When('user goes to shopping cart',async function()
 {
- // console.log("Driver:-", this.driver)
  const cartcheck= new AddCart(this.driver)
  await cartcheck.MoveToShoppingCart()
- const quantity = new ShoppingCart(this.driver)
+ //const quantity = new ShoppingCart(this.driver)
  //console.log('Methods:', Object.getOwnPropertyNames(quantity));  // Lists prototype 
-  await quantity.SelectItemShop()
+  //await quantity.SelectItemShop()
 })
 Then('user can change quantity', async function()
 {
  const number= new ShoppingCart(this.driver)
- await number.ChangeQuantity(5)
- await sleep(3000)
+ await number.ChangeQuantity(3)
+ await sleep(2000)
 await number.CalculateChange()
 })
