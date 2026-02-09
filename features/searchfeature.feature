@@ -18,4 +18,4 @@ Then user does not find the item
 @searchAddToCart
 Scenario: user searched the item and added to cart
 When user finds the item
-Then user adds to cart
+Then user adds to wishlist
