@@ -7,6 +7,7 @@ class ShoppingCart extends AddCart
     {
         super(driver)
         this.driver=driver  
+        this.num = null;    
     }
     async SelectItemShop()
     {
@@ -16,12 +17,13 @@ class ShoppingCart extends AddCart
     }
     async ChangeQuantity(num)
     {
+        this.num=num
         this.quantity= this.driver.wait(until.elementLocated(By.xpath("//input[@name='removefromcart']")))
         await this.driver.wait(until.elementIsVisible(this.quantity))
         await this.quantity.clear()
-        const value = num
+        const value = this.num
         await this.quantity.sendKeys(value)
-        const total = num*10
+        const total = this.num*10
     }
 }
 module.exports= ShoppingCart
