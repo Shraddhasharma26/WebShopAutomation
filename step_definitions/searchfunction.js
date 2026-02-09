@@ -5,11 +5,13 @@ const BasePage = require('../page/BasePage.js');
 const AddCart = require('../page/AddCart.js')
 const LoginPage= require('../page/LoginPage.js')
 const ShoppingCart = require('../page/ShoppingCart.js')
+const SearchFunctionality= require('../page/SearchFunctionality.js')
 
 let driver
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 const assert =require("assert")
-Given('user login to website', async function()
+
+Given('user visit website and login to it', async function()
 {
 this.driver = await new Builder().forBrowser('chrome').build();
  const base = new BasePage(this.driver)
@@ -21,29 +23,21 @@ this.driver = await new Builder().forBrowser('chrome').build();
  await logpage.PasswordValue('Shraddha@26')
  await logpage.ClickOnLoginButton()
 })
-When('user selects the item', async function()
+
+Given('user selects the search bar',async function()
 {
- const cartadded= new AddCart(driver)
- await cartadded.SelectItems()
- await cartadded.AddToCart()
-})
-Then('user navigate to add cart', async function()
-{
- const cartcheck= new AddCart(this.driver)
- await cartcheck.MoveToShoppingCart()
+ const searchfun = new SearchFunctionality()
+ await searchfun.searchBar()
 })
 
-When('user goes to shopping cart',async function()
+When('user finds the item', async function()
 {
- const cartcheck= new AddCart(this.driver)
- await cartcheck.MoveToShoppingCart()
- //const quantity = new ShoppingCart(this.driver)
- //console.log('Methods:', Object.getOwnPropertyNames(quantity));  // Lists prototype 
-  //await quantity.SelectItemShop()
+ const finditem = new SearchFunctionality()
+ await finditem.searchItem()
 })
-Then('user can change quantity', async function()
-{
- const number= new ShoppingCart(this.driver)
- await this.number.ChangeQuantity(3)
 
+Then('user adds to cart', async function()
+{
+ const addtowishlist = new SearchFunctionality()
+ await addtowishlist.searchAddWishlist()
 })
