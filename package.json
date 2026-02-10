@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "test:tag1": "cucumber-js --tags \"@tag1\""
+    "test:searchAddToCart": "cucumber-js --tags \"@searchAddToCart\""
 
   },
   "keywords": [],

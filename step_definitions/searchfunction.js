@@ -26,18 +26,19 @@ this.driver = await new Builder().forBrowser('chrome').build();
 
 Given('user selects the search bar',async function()
 {
- const searchfun = new SearchFunctionality()
+ const searchfun = new SearchFunctionality(this.driver)
  await searchfun.searchBar()
 })
 
 When('user finds the item', async function()
 {
- const finditem = new SearchFunctionality()
+ const finditem = new SearchFunctionality(this.driver)
  await finditem.searchItem()
 })
 
-Then('user adds to cart', async function()
+Then('user adds to wishlist', async function()
 {
- const addtowishlist = new SearchFunctionality()
+ const addtowishlist = new SearchFunctionality(this.driver)
  await addtowishlist.searchAddWishlist()
+ await sleep(3000)
 })
