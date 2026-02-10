@@ -44,7 +44,6 @@ When('user goes to shopping cart',async function()
 Then('user can change quantity', async function()
 {
  const number= new ShoppingCart(this.driver)
- await number.ChangeQuantity(3)
- await sleep(2000)
-await number.CalculateChange()
+ await this.number.ChangeQuantity(3)
+
 })
