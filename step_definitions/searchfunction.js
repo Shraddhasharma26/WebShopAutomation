@@ -53,3 +53,14 @@ Then('user does not find the item',async function()
     const itemcheck = new SearchFunctionality(this.driver)
     await itemcheck.MessageDisplay()
 })
+
+When('user types the item title', async function()
+{
+    const itemtosearch = new SearchFunctionality(this.driver)
+    await itemtosearch.ProvideTitle()
+})
+Then('user finds the typed item', async function()
+{
+    const itemtobeassert = new SearchFunctionality(this.driver)
+    await itemtobeassert.FoundCheck()
+})

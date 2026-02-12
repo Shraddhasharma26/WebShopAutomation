@@ -75,5 +75,30 @@ async InvalidSearch()
             console.error("An error occurred:", error);
         }
  }
+ async ProvideTitle()
+ {
+     await this.driver.wait(until.elementIsVisible(search))
+    await search.click()
+    await search.sendKeys("blue")
+    await search.sendKeys(Key.ENTER);
+ }
+ async FoundCheck()
+ {
+    const listofitem = this.driver.wait(until.elementsLocated(By.css('div.item-box')))
+    await this.driver.wait(until.elementIsVisible(listofitem))
+    const element = listofitem[1]
+    console.log(element)
+    for (let i=0;i<=listofitem.length;i++)
+    {
+        if (listofitem[i]===element)
+        {
+            console.log("element found")
+        }
+        else
+        {
+            console.log("Item is not available")
+        }
+    }
+ }
 }
 module.exports = SearchFunctionality
