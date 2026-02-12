@@ -2,6 +2,7 @@ const{By, until,Key}=require('selenium-webdriver')
 const BasePage= require('./BasePage.js');
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
+const assert =require("assert")
 class SearchFunctionality extends BasePage
 {
     constructor(driver)
@@ -49,5 +50,30 @@ async searchAddWishlist()
     await wishlist.click();
     console.log('run 5')
 }
+async InvalidSearch()
+{
+    const search= this.driver.wait(until.elementLocated(By.xpath("//input[@class='search-box-text ui-autocomplete-input']")))
+    await this.driver.wait(until.elementIsVisible(search))
+    await search.click()
+    await search.sendKeys("movies")
+    await search.sendKeys(Key.ENTER);
+}
+ async MessageDisplay()
+ {
+    const actual = this.driver.wait(until.elementLocated(By.css('strong.result')))
+    await this.driver.wait(until.elementIsVisible(actual))
+    const expected = "No products were found that matched your criteria."
+      try
+      {
+      if (assert.strictEqual(actual, expected))
+        {
+        console.log('The searched item is not available')
+        }
+    }
+        catch (error) 
+        {
+            console.error("An error occurred:", error);
+        }
+ }
 }
 module.exports = SearchFunctionality

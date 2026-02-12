@@ -42,3 +42,14 @@ Then('user adds to wishlist', async function()
  await addtowishlist.searchAddWishlist()
  await sleep(3000)
 })
+
+When('When user types the invalid item title',async function()
+{
+    const searchinvalid = new SearchFunctionality(this.driver)
+    await searhinvalid.InvalidSearch()
+})
+Then('user does not find the item',async function()
+{
+    const itemcheck = new SearchFunctionality(this.driver)
+    await itemcheck.MessageDisplay()
+})
