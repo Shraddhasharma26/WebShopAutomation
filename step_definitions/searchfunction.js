@@ -33,6 +33,8 @@ Given('user selects the search bar',async function()
 When('user finds the item', async function()
 {
  const finditem = new SearchFunctionality(this.driver)
+ await finditem.searchBar()
+ await finditem.JewelryFunction()
  await finditem.searchItem()
 })
 
@@ -43,10 +45,14 @@ Then('user adds to wishlist', async function()
  await sleep(3000)
 })
 
-When('When user types the invalid item title',async function()
+
+When('user types the invalid item title',async function()
 {
+    
     const searchinvalid = new SearchFunctionality(this.driver)
-    await searhinvalid.InvalidSearch()
+    await searchinvalid.searchBar()
+    await searchinvalid.InvalidSearch()
+    
 })
 Then('user does not find the item',async function()
 {
@@ -57,6 +63,7 @@ Then('user does not find the item',async function()
 When('user types the item title', async function()
 {
     const itemtosearch = new SearchFunctionality(this.driver)
+    await itemtosearch.searchBar()
     await itemtosearch.ProvideTitle()
 })
 Then('user finds the typed item', async function()
