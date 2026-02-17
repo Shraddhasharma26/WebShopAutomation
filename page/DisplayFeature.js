@@ -18,6 +18,9 @@ class DisplayFeature extends BasePage
     const shoes = await this.driver.findElements(By.xpath("//a[@href ='/apparel-shoes']"))
     const element = shoes[3]
     await this.driver.element.click()
+ }
+ async ChangeDisplay()
+ {
     const display = await this.driver.findElement(By.id('products-pagesize'))
     await this.driver.display.click()
     this.DisplayNumber = this.driver.wait(until.elementLocated(By.xpath("//select//option[@value='https://demowebshop.tricentis.com/apparel-shoes?pagesize=4']")))
@@ -26,7 +29,7 @@ class DisplayFeature extends BasePage
     //const actions = driver.actions({ async: true });
     //await actions.move({ origin: actions }).perform()
  }
- async assertNumuberOfItem()
+ async assertNumberOfItem()
  {
     let count =0
     const countquantity = this.driver.findElements(By.css('div.item-box'))
@@ -44,4 +47,10 @@ class DisplayFeature extends BasePage
             console.error("An error occurred:", error);
         }
  }
+ async sortByFeature()
+ {
+    const sortbyoption = this.driver.wait(until.elementsLocated(By.css('select#products-orderby')))
+    console.log(sortbyoption)
+ }
+
 }
