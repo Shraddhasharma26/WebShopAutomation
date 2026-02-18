@@ -20,18 +20,18 @@ Given('user launch the website and login to the page',async function()
 
 Given('user selects any naviagtion option', async function()
 {
-  const choiceoption= new DisplayFeature(driver)
+  const choiceoption= new DisplayFeature(this.driver)
   await choiceoption.NavigationOption()
 })
 
 When('user changes the quantity per page', async function()
 {
- const changedisplay = new DisplayFeature(driver)
+ const changedisplay = new DisplayFeature(this.driver)
  await changedisplay.ChangeDisplay()
 })
 
 Then('number of item displayed on that page is equal to the number of quantity selected',async function()
 {
- const compare =new DisplayFeature(driver)
+ const compare =new DisplayFeature(this.driver)
  await compare.assertNumberOfItem()
 })
