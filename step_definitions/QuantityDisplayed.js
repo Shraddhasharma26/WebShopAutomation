@@ -35,3 +35,14 @@ Then('number of item displayed on that page is equal to the number of quantity s
  const compare =new DisplayFeature(this.driver)
  await compare.assertNumberOfItem()
 })
+
+When('user changes the sortBy option',async function()
+{
+  const sorting= new DisplayFeature(this.driver)
+  await sorting.sortByFeature()
+})
+
+Then('user must get the outcome as expected',async function()
+{
+  pass
+})

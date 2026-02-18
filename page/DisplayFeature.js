@@ -10,7 +10,8 @@ class DisplayFeature extends BasePage
     {
         super(driver)
         this.driver=driver
-        this.displaySelectElement=null
+        this.option4=null
+        //this.displaySelectElement=null
     }
 
  async NavigationOption()
@@ -23,31 +24,38 @@ class DisplayFeature extends BasePage
  async ChangeDisplay()
 {
    const displaySelectElement = await this.driver.findElement(By.id('products-pagesize'));
-   const select = new Select(displaySelectElement);
-   await select.selectByIndex(0);  // This handles opening and selecting
+   //await driver.executeScript('arguments[0].scrollIntoView(true);', displaySelectElement);
+   await displaySelectElement.click()
+   this.option4 = await driver.findElement(By.xpath("//select[@id='products-pagesize']//option[@value='4']"));
+    const actions = driver.actions();
+    await actions.move({origin: this.option4}).click().perform();
+   //await displaySelectElement.getText();
+   //const select = new Select(displaySelectElement);
+   //await select.selectByIndex(0);  // This handles opening and selecting
    
    // Wait for page to update after selection
-   await this.driver.sleep(1000);  // Or use explicit wait for item-box elements
+   //await this.driver.sleep(1000);  // Or use explicit wait for item-box elements
    
-   const selectedOption = await select.getFirstSelectedOption();
-   this.selectedValue = await selectedOption.getText();
-   console.log("selected value:-", this.selectedValue);
+   //const selectedOption = await select.getFirstSelectedOption();
+   //this.selectedValue = await selectedOption.getText();
+   console.log("selected value:-", this.option4 );
 }
 
  async assertNumberOfItem()
  {
     let count =0
     const countquantity = await this.driver.findElements(By.css('div.item-box'))
-   //  for (let i=0; i<countquantity.length; i++)
-   //  {
-   //      count=count+1
-   //  }
-   // console.log("count qunatity :",countquantity)
-   count= countquantity.length
-   //  console.log("The total count is ", count)
+   
+    for (let i=0; i<countquantity.length; i++)
+    {
+        count=count+1
+    }
+   //console.log("count qunatity :",countquantity)
+   //count= countquantity.length
+   console.log("The total count is ", count)
     try
     {
-    assert.strictEqual(Number(this.selectedValue), count,"Test case passed")
+    assert.strictEqual(this.selectedText, count,"Test case passed")
     }
     catch (error) 
         {
@@ -56,9 +64,14 @@ class DisplayFeature extends BasePage
  }
  async sortByFeature()
  {
-    const sortbyoption = this.driver.wait(until.elementsLocated(By.css('select#products-orderby')))
+    const sortbyoption = this.driver.wait(until.elementLocated(By.css('select#products-orderby')))
+    const select = new Select(sortbyoption);
+    await select.selectByIndex(1);   
    //  console.log(sortbyoption)
  }
 
 }
 module.exports = DisplayFeature
+
+
+//need to check why this feature page is not working
