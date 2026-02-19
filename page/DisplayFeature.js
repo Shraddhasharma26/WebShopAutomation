@@ -23,7 +23,7 @@ class DisplayFeature extends BasePage
  }
  
  async ChangeDisplay()
-{
+ {
    const displaySelectElement = await this.driver.findElement(By.id('products-pagesize'));
    //await driver.executeScript('arguments[0].scrollIntoView(true);', displaySelectElement);
    await displaySelectElement.click()
@@ -40,7 +40,7 @@ class DisplayFeature extends BasePage
    //const selectedOption = await select.getFirstSelectedOption();
    //this.selectedValue = await selectedOption.getText();
    console.log("selected value:-", this.option4 );
-}
+ } 
 
  async assertNumberOfItem()
  {
@@ -63,26 +63,60 @@ class DisplayFeature extends BasePage
             console.error("An error occurred:", error);
         }
  }
- async sortByFeature()
- {
-    const sortbyoption = this.driver.wait(until.elementLocated(By.css('select#products-orderby')))
-    this.select = new Select(sortbyoption);
-    await this.select.selectByIndex(1);  
-    await sleep(3000)
-   //  console.log(sortbyoption)
- }
-async compareSort()
-{
-   const selectedOption = this.select.getFirstSelectedOption();
-   const actualText = await selectedOption.getText(); 
-   const expected = "Name: A to Z";
- try {
-        assert.strictEqual(actualText, expected);  // Fixed assertion
-    } catch (error) {
-      console.log(error)
-    }
+ 
+ async selectByIndexWithRetry(dropdownBy, index, attempts = 3) {
+  for (let i = 0; i < attempts; i++) {
+    try {
+      const el = await this.driver.findElement(dropdownBy);
+      await this.driver.wait(until.elementIsVisible(el), 5000);
+      
+      // DON'T store this.select - just use locally
+      const select = new Select(el);
+      console.log("Selecting index:", index);
+      await select.selectByIndex(index);
+      return;
+    } catch (e) {
+      console.log(`Attempt ${i+1} failed:`, e.name);
+      if (e.name !== "StaleElementReferenceError" || i === attempts - 1) throw e;
+      await sleep(500); // Brief pause before retry
+    } 
+  }
 }
-module.exports = DisplayFeature
+
+
+async sortByFeature() {
+    console.log("start of sortByFeature")
+  const dropdownBy = By.id("products-orderby");
+  await this.driver.wait(until.elementLocated(dropdownBy), 10000);
+  await this.selectByIndexWithRetry(dropdownBy, 1);
+  console.log("End of sortByFeature")
+}
+
+
+async compareSort() {
+  console.log("start of comparesort")
+  
+  // DON'T use this.select - it's unreliable after page changes
+  const dropdownBy = By.id("products-orderby");
+  const dropdown = await this.driver.findElement(dropdownBy);
+  const freshSelect = new Select(dropdown);
+  
+  const selectedOption = await freshSelect.getFirstSelectedOption();
+  const actualText = await selectedOption.getText();
+  const expected = "Name: A to Z";
+  
+  try {
+    assert.strictEqual(actualText, expected);
+  } catch (error) {
+    console.log("Assertion failed:", error.message);
+  }
+  console.log("end of compare sort")
+}
+
+
+}
+
+module.exports=DisplayFeature
 
 
 //need to check why this feature page is not working

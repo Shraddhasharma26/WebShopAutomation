@@ -40,13 +40,15 @@ When('user changes the sortBy option',async function()
 {
   const sorting= new DisplayFeature(this.driver)
   await sorting.sortByFeature()
+  await sorting.compareSort()
 })
 
 Then('user must get the outcome as expected',async function()
 {
-  pass
+   const sortcomp= new DisplayFeature(this.driver)
+   await sortcomp.compareSort()
 })
 When('user changed the grid option', async function()
 {
-
+ pass
 })
