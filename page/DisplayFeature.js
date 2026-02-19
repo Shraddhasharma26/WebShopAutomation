@@ -11,6 +11,7 @@ class DisplayFeature extends BasePage
         super(driver)
         this.driver=driver
         this.option4=null
+        this.select=null
         //this.displaySelectElement=null
     }
 
@@ -65,11 +66,21 @@ class DisplayFeature extends BasePage
  async sortByFeature()
  {
     const sortbyoption = this.driver.wait(until.elementLocated(By.css('select#products-orderby')))
-    const select = new Select(sortbyoption);
-    await select.selectByIndex(1);   
+    this.select = new Select(sortbyoption);
+    await this.select.selectByIndex(1);  
+    await sleep(3000)
    //  console.log(sortbyoption)
  }
-
+async compareSort()
+{
+   const selectedOption = this.select.getFirstSelectedOption();
+   const actualText = await selectedOption.getText(); 
+   const expected = "Name: A to Z";
+ try {
+        assert.strictEqual(actualText, expected);  // Fixed assertion
+    } catch (error) {
+      console.log(error)
+    }
 }
 module.exports = DisplayFeature
 

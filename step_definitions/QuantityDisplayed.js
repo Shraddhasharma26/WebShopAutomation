@@ -46,3 +46,7 @@ Then('user must get the outcome as expected',async function()
 {
   pass
 })
+When('user changed the grid option', async function()
+{
+
+})
