@@ -50,5 +50,11 @@ Then('user must get the outcome as expected',async function()
 })
 When('user changed the grid option', async function()
 {
- pass
+  const gridfunc = new DisplayFeature(this.driver)
+  await gridfunc.changeGrid()
+})
+Then('user must get item displayed as per the change',async function()
+{
+  const gridfunc1 = new DisplayFeature(this.driver)
+  await gridfunc1.compareGrid()
 })

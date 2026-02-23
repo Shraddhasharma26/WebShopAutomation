@@ -112,7 +112,29 @@ async compareSort() {
   }
   console.log("end of compare sort")
 }
-
+async changeGrid()
+{
+  const grid = await this.driver.wait(until.elementLocated(By.id("products-viewmode")))
+  await this.driver.wait(until.elementIsVisible(grid))
+  const select = new Select(grid);
+  await select.selectByIndex(1);
+}
+async compareGrid()
+{
+  const gridId = By.id("products-viewmode");
+  const checkgrid = await this.driver.findElement(gridId);
+  const gridSelect = new Select(checkgrid);
+  
+  const gridOption = await gridSelect.getFirstSelectedOption();
+  const actualText = await gridOption.getText();
+  const expected = "List";
+  
+  try {
+    assert.strictEqual(actualText, expected);
+  } catch (error) {
+    console.log("Assertion failed:", error.message);
+  }
+}
 
 }
 
