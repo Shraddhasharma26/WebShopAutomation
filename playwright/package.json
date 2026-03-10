@@ -7,7 +7,9 @@
     "test": "playwright test",
     "test:headed": "playwright test --headed",
     "test:debug": "playwright test --debug",
-    "cucumber": "npx cucumber-js --require tests/step_defination/**/*.js"
+    "cucumber": "npx cucumber-js --require tests/step_defination/**/*.js",
+    "cucumber:tag": "npx cucumber-js --require tests/step_defination/**/*.js --tags \"@tag\"",
+    "cucumber:tag1": "npx cucumber-js --require tests/step_defination/**/*.js --tags \"@tag1\""
   },
   "keywords": [],
   "author": "",
