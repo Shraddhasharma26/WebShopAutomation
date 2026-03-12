@@ -28,5 +28,17 @@ class addCart extends basePage
         // example assertion using Playwright expect
         await expect(actual.trim()).toBe("Computing and Internet");
     }
+    async navigateToShoppingCart()
+    {
+        await this.page.locator("//a[@href='/cart']//span[@class ='cart-label']").click()
+    }
+    async changePrice(num)
+    {
+        // ensure the value passed to fill is a string
+        const value = String(num);
+        const locator = this.page.locator("//td[@class='qty nobr']//input[starts-with(@name,'itemquantity')]")
+        await locator.fill(value)
+        await locator.press('Enter')
+    }
 }
 module.exports=addCart;

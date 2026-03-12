@@ -25,3 +25,13 @@ Then('user navigate to add cart' ,async function()
  const navigate = new addCart(this.page)
  await navigate.goToShoppingCart()
 })
+When('user goes to shopping cart' , async function()
+{
+    const shop = new addCart(this.page)
+    await shop.navigateToShoppingCart()
+}) 
+Then ('user can change quantity', async function()
+{
+ const change = new addCart(this.page)
+ await change.changePrice(6)
+})
