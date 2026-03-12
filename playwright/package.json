@@ -1,0 +1,24 @@
+{
+  "name": "playwright",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "cucumber": "npx cucumber-js --require tests/step_defination/**/*.js",
+    "cucumber:tag": "npx cucumber-js --require tests/step_defination/**/*.js --tags \"@tag\"",
+    "cucumber:tag1": "npx cucumber-js --require tests/step_defination/**/*.js --tags \"@tag1\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@cucumber/cucumber": "^12.7.0",
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.3.3",
+    "cucumber-html-reporter": "^7.2.0"
+  }
+}
